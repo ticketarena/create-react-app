@@ -440,7 +440,7 @@ module.exports = {
           '!src/setupProxy.js',
           '!src/setupTests.*',
         ],
-        watch: [paths.appNodeModules, paths.appSrc],
+        watch: paths.appSrc,
         silent: true,
         formatter: typescriptFormatter,
       }),
