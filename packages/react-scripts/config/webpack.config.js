@@ -585,10 +585,20 @@ module.exports = function(webpackEnv) {
         new WatchMissingNodeModulesPlugin(paths.appNodeModules),
       isEnvProduction &&
         new MiniCssExtractPlugin({
+          // filename:
+          //   isEnvProduction && process.env.HASH_CSS_JS_NAMES
+          //     ? 'static/js/[name].[chunkhash:8].js'
+          //     : isEnvProduction
+          //       ? 'static/js/[name].js'
+          //       : isEnvDevelopment && 'static/js/bundle.js',
           // Options similar to the same options in webpackOptions.output
           // both options are optional
-          filename: 'static/css/[name].css', // .[contenthash:8]
-          chunkFilename: 'static/css/[name].css', // .chunk // .[contenthash:8]
+          filename: process.env.HASH_CSS_JS_NAMES
+            ? 'static/css/[name].[contenthash:8].css'
+            : 'static/css/[name].css',
+          chunkFilename: process.env.HASH_CSS_JS_NAMES
+            ? 'static/css/[name].[contenthash:8].css'
+            : 'static/css/[name].css', // .chunk
         }),
       // Generate a manifest file which contains a mapping of all asset filenames
       // to their corresponding output file so that tools can pick it up without
