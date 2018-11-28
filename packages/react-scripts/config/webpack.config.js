@@ -169,9 +169,9 @@ module.exports = function(webpackEnv) {
       // There are also additional JS chunk files if you use code splitting.
       chunkFilename:
         isEnvProduction && process.env.HASH_CSS_JS_NAMES
-          ? 'static/js/[name].[chunkhash:8].js'
+          ? 'static/js/[name].[chunkhash:8].js' // .chunk
           : isEnvProduction
-            ? 'static/js/[name].js'
+            ? 'static/js/[name].js' // .chunk
             : isEnvDevelopment && 'static/js/[name].js', // .chunk
       // We inferred the "public path" (such as / or /my-project) from homepage.
       // We use "/" in development.
