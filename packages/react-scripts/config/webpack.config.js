@@ -6,6 +6,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 // @remove-on-eject-end
+'use strict';
 
 const fs = require('fs');
 const path = require('path');
@@ -264,7 +265,7 @@ module.exports = function(webpackEnv) {
         : {},
       // Keep the runtime chunk seperated to enable long term caching
       // https://twitter.com/wSokra/status/969679223278505985
-      // runtimeChunk: true,
+      runtimeChunk: true,
     },
     resolve: {
       // This allows you to set a fallback for where Webpack should look for modules.
