@@ -87,6 +87,7 @@ function getClientEnvironment(publicUrl) {
         PUBLIC_URL: publicUrl,
         SASS_PATH: process.env.SASS_PATH,
         HASH_CSS_JS_NAMES: process.env.HASH_CSS_JS_NAMES || false,
+        CHUNK_CSS_JS: process.env.CHUNK_CSS_JS || false,
       }
     );
   // Stringify all values so we can feed into Webpack DefinePlugin

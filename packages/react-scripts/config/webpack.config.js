@@ -167,12 +167,17 @@ module.exports = function(webpackEnv) {
             ? 'static/js/[name].js'
             : isEnvDevelopment && 'static/js/bundle.js',
       // There are also additional JS chunk files if you use code splitting.
-      chunkFilename:
-        isEnvProduction && process.env.HASH_CSS_JS_NAMES
-          ? 'static/js/[name].[chunkhash:8].js' // .chunk
+      chunkFilename: process.env.CHUNK_CSS_JS
+        ? isEnvProduction && process.env.HASH_CSS_JS_NAMES
+          ? 'static/js/[name].[chunkhash:8].chunk.js'
           : isEnvProduction
-            ? 'static/js/[name].js' // .chunk
-            : isEnvDevelopment && 'static/js/[name].js', // .chunk
+            ? 'static/js/[name].chunk.js'
+            : isEnvDevelopment && 'static/js/[name].chunk.js'
+        : isEnvProduction && process.env.HASH_CSS_JS_NAMES
+          ? 'static/js/[name].[chunkhash:8].js'
+          : isEnvProduction
+            ? 'static/js/[name].js'
+            : isEnvDevelopment && 'static/js/[name].js',
       // We inferred the "public path" (such as / or /my-project) from homepage.
       // We use "/" in development.
       publicPath: publicPath,
@@ -597,8 +602,12 @@ module.exports = function(webpackEnv) {
             ? 'static/css/[name].[contenthash:8].css'
             : 'static/css/[name].css',
           chunkFilename: process.env.HASH_CSS_JS_NAMES
-            ? 'static/css/[name].[contenthash:8].css'
-            : 'static/css/[name].css', // .chunk
+            ? process.env.CHUNK_CSS_JS
+              ? 'static/css/[name].[contenthash:8].chunk.css'
+              : 'static/css/[name].[contenthash:8].css'
+            : process.env.CHUNK_CSS_JS
+              ? 'static/css/[name].chunk.css'
+              : 'static/css/[name].css',
         }),
       // Generate a manifest file which contains a mapping of all asset filenames
       // to their corresponding output file so that tools can pick it up without
