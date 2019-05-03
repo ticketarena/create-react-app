@@ -31,6 +31,7 @@ const getClientEnvironment = require('./env');
 const ModuleNotFoundPlugin = require('react-dev-utils/ModuleNotFoundPlugin');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin-alt');
 const typescriptFormatter = require('react-dev-utils/typescriptFormatter');
+const Dotenv = require('dotenv-webpack');
 // @remove-on-eject-begin
 const getCacheIdentifier = require('react-dev-utils/getCacheIdentifier');
 // @remove-on-eject-end
@@ -165,20 +166,20 @@ module.exports = function(webpackEnv) {
         isEnvProduction && process.env.HASH_CSS_JS_NAMES
           ? 'static/js/[name].[chunkhash:8].js'
           : isEnvProduction
-            ? 'static/js/[name].js'
-            : isEnvDevelopment && 'static/js/bundle.js',
+          ? 'static/js/[name].js'
+          : isEnvDevelopment && 'static/js/bundle.js',
       // There are also additional JS chunk files if you use code splitting.
       chunkFilename: process.env.CHUNK_CSS_JS
         ? isEnvProduction && process.env.HASH_CSS_JS_NAMES
           ? 'static/js/[name].[chunkhash:8].chunk.js'
           : isEnvProduction
-            ? 'static/js/[name].chunk.js'
-            : isEnvDevelopment && 'static/js/[name].chunk.js'
+          ? 'static/js/[name].chunk.js'
+          : isEnvDevelopment && 'static/js/[name].chunk.js'
         : isEnvProduction && process.env.HASH_CSS_JS_NAMES
-          ? 'static/js/[name].[chunkhash:8].js'
-          : isEnvProduction
-            ? 'static/js/[name].js'
-            : isEnvDevelopment && 'static/js/[name].js',
+        ? 'static/js/[name].[chunkhash:8].js'
+        : isEnvProduction
+        ? 'static/js/[name].js'
+        : isEnvDevelopment && 'static/js/[name].js',
       // We inferred the "public path" (such as / or /my-project) from homepage.
       // We use "/" in development.
       publicPath: publicPath,
@@ -532,6 +533,7 @@ module.exports = function(webpackEnv) {
       ],
     },
     plugins: [
+      new Dotenv(),
       // Generates an `index.html` file with the <script> injected.
       new HtmlWebpackPlugin(
         Object.assign(
@@ -609,8 +611,8 @@ module.exports = function(webpackEnv) {
               ? 'static/css/[name].[contenthash:8].chunk.css'
               : 'static/css/[name].[contenthash:8].css'
             : process.env.CHUNK_CSS_JS
-              ? 'static/css/[name].chunk.css'
-              : 'static/css/[name].css',
+            ? 'static/css/[name].chunk.css'
+            : 'static/css/[name].css',
         }),
       // Generate a manifest file which contains a mapping of all asset filenames
       // to their corresponding output file so that tools can pick it up without
