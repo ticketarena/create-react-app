@@ -1,6 +1,6 @@
 {
   "name": "@eg/react-app-polyfill",
-  "version": "0.3.0",
+  "version": "0.2.0",
   "description": "Polyfills for various browsers including commonly used language features",
   "repository": "ticketarena/create-react-app",
   "license": "MIT",
