@@ -39,5 +39,6 @@
     "babel-plugin-dynamic-import-node": "2.2.0",
     "babel-plugin-macros": "2.5.1",
     "babel-plugin-transform-react-remove-prop-types": "0.4.24"
-  }
+  },
+  "gitHead": "ae054aa77bd2b33510fa74ed50d49df7b64a076c"
 }

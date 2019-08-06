@@ -129,7 +129,7 @@ cd test-app-version-number
 
 # Check corresponding scripts version is installed.
 exists node_modules/react-scripts
-grep '"version": "1.0.17"' node_modules/react-scripts/package.json
+grep '"version": "1.0.17"' node_modules/@eg/react-scripts/package.json
 checkDependencies
 
 # ******************************************************************************
@@ -143,7 +143,7 @@ cd test-use-npm-flag
 # Check corresponding scripts version is installed.
 exists node_modules/react-scripts
 [ ! -e "yarn.lock" ] && echo "yarn.lock correctly does not exist"
-grep '"version": "1.0.17"' node_modules/react-scripts/package.json
+grep '"version": "1.0.17"' node_modules/@eg/react-scripts/package.json
 checkDependencies
 
 # ******************************************************************************
@@ -194,7 +194,7 @@ cd test-app-tarball-url
 
 # Check corresponding scripts version is installed.
 exists node_modules/react-scripts
-grep '"version": "1.0.17"' node_modules/react-scripts/package.json
+grep '"version": "1.0.17"' node_modules/@eg/react-scripts/package.json
 checkDependencies
 
 # ******************************************************************************
