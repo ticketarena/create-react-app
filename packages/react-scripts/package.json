@@ -1,10 +1,10 @@
 {
-  "name": "react-scripts",
+  "name": "@eg/react-scripts",
   "version": "3.0.1",
   "description": "Configuration and scripts for Create React App.",
   "repository": {
     "type": "git",
-    "url": "https://github.com/facebook/create-react-app.git",
+    "url": "https://github.com/ticketarena/create-react-app.git",
     "directory": "packages/react-scripts"
   },
   "license": "MIT",
@@ -12,7 +12,7 @@
     "node": ">=8.10"
   },
   "bugs": {
-    "url": "https://github.com/facebook/create-react-app/issues"
+    "url": "https://github.com/ticketarena/create-react-app/issues"
   },
   "files": [
     "bin",
@@ -42,6 +42,7 @@
     "css-loader": "2.1.1",
     "dotenv": "6.2.0",
     "dotenv-expand": "4.2.0",
+    "dotenv-webpack": "^1.7.0",
     "eslint": "^6.1.0",
     "eslint-config-react-app": "^4.0.1",
     "eslint-loader": "2.2.1",
