@@ -32,6 +32,7 @@ const modules = require('./modules');
 const getClientEnvironment = require('./env');
 const ModuleNotFoundPlugin = require('react-dev-utils/ModuleNotFoundPlugin');
 const ForkTsCheckerWebpackPlugin = require('react-dev-utils/ForkTsCheckerWebpackPlugin');
+const Dotenv = require('dotenv-webpack');
 const typescriptFormatter = require('react-dev-utils/typescriptFormatter');
 const eslint = require('eslint');
 // @remove-on-eject-begin
@@ -45,7 +46,7 @@ const appPackageJson = require(paths.appPackageJson);
 const shouldUseSourceMap = process.env.GENERATE_SOURCEMAP !== 'false';
 // Some apps do not need the benefits of saving a web request, so not inlining the chunk
 // makes for a smoother build process.
-const shouldInlineRuntimeChunk = process.env.INLINE_RUNTIME_CHUNK !== 'false';
+const shouldInlineRuntimeChunk = process.env.CHUNK_CSS_JS && process.env.INLINE_RUNTIME_CHUNK !== 'false';
 
 const imageInlineSizeLimit = parseInt(
   process.env.IMAGE_INLINE_SIZE_LIMIT || '10000'
@@ -180,14 +181,14 @@ module.exports = function(webpackEnv) {
       // There will be one main bundle, and one file per asynchronous chunk.
       // In development, it does not produce real files.
       filename: isEnvProduction
-        ? 'static/js/[name].[contenthash:8].js'
+        ? `static/js/[name]${process.env.HASH_CSS_JS_NAMES ? '.[contenthash:8]' : ''}.js`
         : isEnvDevelopment && 'static/js/bundle.js',
       // TODO: remove this when upgrading to webpack 5
       futureEmitAssets: true,
       // There are also additional JS chunk files if you use code splitting.
       chunkFilename: isEnvProduction
-        ? 'static/js/[name].[contenthash:8].chunk.js'
-        : isEnvDevelopment && 'static/js/[name].chunk.js',
+        ? `static/js/[name]${process.env.HASH_CSS_JS_NAMES ? '.[contenthash:8]' : ''}${process.env.CHUNK_CSS_JS ? '.chunk' : ''}.js`
+        : isEnvDevelopment && `static/js/[name]${process.env.CHUNK_CSS_JS ? '.chunk' : ''}.js`,
       // We inferred the "public path" (such as / or /my-project) from homepage.
       // We use "/" in development.
       publicPath: publicPath,
@@ -271,10 +272,12 @@ module.exports = function(webpackEnv) {
       // Automatically split vendor and commons
       // https://twitter.com/wSokra/status/969633336732905474
       // https://medium.com/webpack/webpack-4-code-splitting-chunk-graph-and-the-splitchunks-optimization-be739a861366
-      splitChunks: {
-        chunks: 'all',
-        name: false,
-      },
+      splitChunks: process.env.CHUNK_CSS_JS
+        ? {
+          chunks: 'all',
+          name: false,
+        }
+        : {},
       // Keep the runtime chunk separated to enable long term caching
       // https://twitter.com/wSokra/status/969679223278505985
       // https://github.com/facebook/create-react-app/issues/5358
@@ -564,6 +567,7 @@ module.exports = function(webpackEnv) {
       ],
     },
     plugins: [
+      new Dotenv(),
       // Generates an `index.html` file with the <script> injected.
       new HtmlWebpackPlugin(
         Object.assign(
@@ -628,8 +632,8 @@ module.exports = function(webpackEnv) {
         new MiniCssExtractPlugin({
           // Options similar to the same options in webpackOptions.output
           // both options are optional
-          filename: 'static/css/[name].[contenthash:8].css',
-          chunkFilename: 'static/css/[name].[contenthash:8].chunk.css',
+          filename: `static/css/[name]${process.env.HASH_CSS_JS_NAMES ? '.[contenthash:8]' : ''}.css`,
+          chunkFilename: `static/css/[name]${process.env.HASH_CSS_JS_NAMES ? '.[contenthash:8]' : ''}${process.env.CHUNK_CSS_JS ? '.chunk' : ''}.css`,
         }),
       // Generate a manifest file which contains a mapping of all asset filenames
       // to their corresponding output file so that tools can pick it up without

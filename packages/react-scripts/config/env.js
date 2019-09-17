@@ -88,6 +88,10 @@ function getClientEnvironment(publicUrl) {
         // Adding a SASS_PATH allow us to resolve the ui-lib's sass includes
         // without hideous paths in the code
         SASS_PATH: process.env.SASS_PATH,
+        // Allows us to enable/disable hashing the output file names
+        HASH_CSS_JS_NAMES: process.env.HASH_CSS_JS_NAMES || false,
+        // Allows us to enable/disable chunking the output files
+        CHUNK_CSS_JS: process.env.CHUNK_CSS_JS || false,
       }
     );
   // Stringify all values so we can feed into Webpack DefinePlugin
