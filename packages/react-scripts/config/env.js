@@ -85,6 +85,9 @@ function getClientEnvironment(publicUrl) {
         // This should only be used as an escape hatch. Normally you would put
         // images into the `src` and `import` them in code to get their paths.
         PUBLIC_URL: publicUrl,
+        // Adding a SASS_PATH allow us to resolve the ui-lib's sass includes
+        // without hideous paths in the code
+        SASS_PATH: process.env.SASS_PATH,
       }
     );
   // Stringify all values so we can feed into Webpack DefinePlugin
