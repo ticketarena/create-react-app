@@ -46,7 +46,8 @@ const appPackageJson = require(paths.appPackageJson);
 const shouldUseSourceMap = process.env.GENERATE_SOURCEMAP !== 'false';
 // Some apps do not need the benefits of saving a web request, so not inlining the chunk
 // makes for a smoother build process.
-const shouldInlineRuntimeChunk = process.env.CHUNK_CSS_JS && process.env.INLINE_RUNTIME_CHUNK !== 'false';
+const shouldInlineRuntimeChunk =
+  process.env.CHUNK_CSS_JS && process.env.INLINE_RUNTIME_CHUNK !== 'false';
 
 const imageInlineSizeLimit = parseInt(
   process.env.IMAGE_INLINE_SIZE_LIMIT || '10000'
@@ -181,14 +182,19 @@ module.exports = function(webpackEnv) {
       // There will be one main bundle, and one file per asynchronous chunk.
       // In development, it does not produce real files.
       filename: isEnvProduction
-        ? `static/js/[name]${process.env.HASH_CSS_JS_NAMES ? '.[contenthash:8]' : ''}.js`
+        ? `static/js/[name]${
+            process.env.HASH_CSS_JS_NAMES ? '.[contenthash:8]' : ''
+          }.js`
         : isEnvDevelopment && 'static/js/bundle.js',
       // TODO: remove this when upgrading to webpack 5
       futureEmitAssets: true,
       // There are also additional JS chunk files if you use code splitting.
       chunkFilename: isEnvProduction
-        ? `static/js/[name]${process.env.HASH_CSS_JS_NAMES ? '.[contenthash:8]' : ''}${process.env.CHUNK_CSS_JS ? '.chunk' : ''}.js`
-        : isEnvDevelopment && `static/js/[name]${process.env.CHUNK_CSS_JS ? '.chunk' : ''}.js`,
+        ? `static/js/[name]${
+            process.env.HASH_CSS_JS_NAMES ? '.[contenthash:8]' : ''
+          }${process.env.CHUNK_CSS_JS ? '.chunk' : ''}.js`
+        : isEnvDevelopment &&
+          `static/js/[name]${process.env.CHUNK_CSS_JS ? '.chunk' : ''}.js`,
       // We inferred the "public path" (such as / or /my-project) from homepage.
       // We use "/" in development.
       publicPath: publicPath,
@@ -274,9 +280,9 @@ module.exports = function(webpackEnv) {
       // https://medium.com/webpack/webpack-4-code-splitting-chunk-graph-and-the-splitchunks-optimization-be739a861366
       splitChunks: process.env.CHUNK_CSS_JS
         ? {
-          chunks: 'all',
-          name: false,
-        }
+            chunks: 'all',
+            name: false,
+          }
         : {},
       // Keep the runtime chunk separated to enable long term caching
       // https://twitter.com/wSokra/status/969679223278505985
@@ -306,6 +312,8 @@ module.exports = function(webpackEnv) {
         // Support React Native Web
         // https://www.smashingmagazine.com/2016/08/a-glimpse-into-the-future-with-react-native-for-web/
         'react-native': 'react-native-web',
+        react: path.resolve('./node_modules/react'),
+        'react-dom': path.resolve('./node_modules/react-dom'),
       },
       plugins: [
         // Adds support for installing with Plug'n'Play, leading to faster installs and adding
@@ -632,8 +640,12 @@ module.exports = function(webpackEnv) {
         new MiniCssExtractPlugin({
           // Options similar to the same options in webpackOptions.output
           // both options are optional
-          filename: `static/css/[name]${process.env.HASH_CSS_JS_NAMES ? '.[contenthash:8]' : ''}.css`,
-          chunkFilename: `static/css/[name]${process.env.HASH_CSS_JS_NAMES ? '.[contenthash:8]' : ''}${process.env.CHUNK_CSS_JS ? '.chunk' : ''}.css`,
+          filename: `static/css/[name]${
+            process.env.HASH_CSS_JS_NAMES ? '.[contenthash:8]' : ''
+          }.css`,
+          chunkFilename: `static/css/[name]${
+            process.env.HASH_CSS_JS_NAMES ? '.[contenthash:8]' : ''
+          }${process.env.CHUNK_CSS_JS ? '.chunk' : ''}.css`,
         }),
       // Generate a manifest file which contains a mapping of all asset filenames
       // to their corresponding output file so that tools can pick it up without
