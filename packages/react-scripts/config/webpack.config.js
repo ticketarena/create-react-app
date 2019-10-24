@@ -646,6 +646,7 @@ module.exports = function(webpackEnv) {
           chunkFilename: `static/css/[name]${
             process.env.HASH_CSS_JS_NAMES ? '.[contenthash:8]' : ''
           }${process.env.CHUNK_CSS_JS ? '.chunk' : ''}.css`,
+          ignoreOrder: true,
         }),
       // Generate a manifest file which contains a mapping of all asset filenames
       // to their corresponding output file so that tools can pick it up without
